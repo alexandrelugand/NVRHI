@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6C06B30D-D81A-DBBE-A19C-7E1E0D70D7EF}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>NVRHI</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(ProjectDir)..\..\bin\windows\x86_64\Debug\</OutDir>
+    <IntDir>$(ProjectDir)..\..\obj\windows\x86_64\Debug\NVRHI\</IntDir>
+    <TargetName>NVRHI</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)..\..\bin\windows\x86_64\Release\</OutDir>
+    <IntDir>$(ProjectDir)..\..\obj\windows\x86_64\Release\NVRHI\</IntDir>
+    <TargetName>NVRHI</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4005;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PreprocessorDefinitions>NOMINMAX;VK_USE_PLATFORM_WIN32_KHR;NVRHI_D3D12_WITH_COOPVEC=0;VULKAN_HPP_DISPATCH_LOADER_DYNAMIC=1;NVRHI_SHARED_LIBRARY_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>include;thirdparty\Vulkan-Headers\include;thirdparty\DirectX-Headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4005;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PreprocessorDefinitions>NOMINMAX;VK_USE_PLATFORM_WIN32_KHR;NVRHI_D3D12_WITH_COOPVEC=0;VULKAN_HPP_DISPATCH_LOADER_DYNAMIC=1;NVRHI_SHARED_LIBRARY_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>include;thirdparty\Vulkan-Headers\include;thirdparty\DirectX-Headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\nvrhi\common\aftermath.h" />
+    <ClInclude Include="include\nvrhi\common\containers.h" />
+    <ClInclude Include="include\nvrhi\common\misc.h" />
+    <ClInclude Include="include\nvrhi\common\resource.h" />
+    <ClInclude Include="include\nvrhi\common\resourcebindingmap.h" />
+    <ClInclude Include="include\nvrhi\d3d11.h" />
+    <ClInclude Include="include\nvrhi\d3d12.h" />
+    <ClInclude Include="include\nvrhi\nvrhi.h" />
+    <ClInclude Include="include\nvrhi\nvrhiHLSL.h" />
+    <ClInclude Include="include\nvrhi\utils.h" />
+    <ClInclude Include="include\nvrhi\validation.h" />
+    <ClInclude Include="include\nvrhi\vulkan.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\common\aftermath.cpp" />
+    <ClCompile Include="src\common\dxgi-format.cpp" />
+    <ClCompile Include="src\common\format-info.cpp" />
+    <ClCompile Include="src\common\misc.cpp" />
+    <ClCompile Include="src\common\state-tracking.cpp" />
+    <ClCompile Include="src\common\utils.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-buffer.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-commandlist.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-compute.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-constants.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-device.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-graphics.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-queries.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-resource-bindings.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-shader.cpp" />
+    <ClCompile Include="src\d3d11\d3d11-texture.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-buffer.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-commandlist.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-compute.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-constants.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-descriptor-heap.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-device.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-graphics.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-meshlets.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-queries.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-raytracing.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-resource-bindings.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-shader.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-state-tracking.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-texture.cpp" />
+    <ClCompile Include="src\d3d12\d3d12-upload.cpp" />
+    <ClCompile Include="src\validation\validation-commandlist.cpp" />
+    <ClCompile Include="src\validation\validation-device.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-allocator.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-buffer.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-commandlist.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-compute.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-constants.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-device.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-graphics.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-meshlets.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-queries.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-queue.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-raytracing.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-resource-bindings.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-shader.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-staging-texture.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-state-tracking.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-texture.cpp" />
+    <ClCompile Include="src\vulkan\vulkan-upload.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
