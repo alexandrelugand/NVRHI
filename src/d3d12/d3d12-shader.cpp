@@ -230,9 +230,59 @@ namespace nvrhi::d3d12
 
         return ShaderLibraryHandle::Create(shaderLibrary);
     }
-    
-    InputLayoutHandle Device::createInputLayout(const VertexAttributeDesc * d, uint32_t attributeCount, IShader* vertexShader)
+
+    InputLayoutHandle Device::createInputLayout(const VertexAttributeDesc* d, uint32_t attributeCount, IShader* vertexShader)
     {
+#if NVRHI_D3D12_SUNSET_INPUT_LAYOUT_SEMANTIC
+        // The shader is not needed here, there are no separate IL objects in DX12
+        (void)vertexShader;
+
+        InputLayout* layout = new InputLayout();
+        layout->attributes.resize(attributeCount);
+
+        for (uint32_t index = 0; index < attributeCount; index++)
+        {
+            VertexAttributeDesc& attr = layout->attributes[index];
+
+            // Copy the description to get a stable name pointer in desc
+            attr = d[index];
+
+            assert(attr.arraySize > 0);
+
+            const DxgiFormatMapping& formatMapping = getDxgiFormatMapping(attr.format);
+            const FormatInfo& formatInfo = getFormatInfo(attr.format);
+
+            D3D12_INPUT_ELEMENT_DESC desc;
+            desc.SemanticIndex = attr.semanticIndex;
+            desc.SemanticName = attr.name.c_str();
+            desc.AlignedByteOffset = attr.offset;
+            desc.Format = formatMapping.srvFormat;
+            desc.InputSlot = attr.bufferIndex;
+
+            if (attr.isInstanced)
+            {
+                desc.InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA;
+                desc.InstanceDataStepRate = 1;
+            }
+            else
+            {
+                desc.InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA;
+                desc.InstanceDataStepRate = 0;
+            }
+
+            layout->inputElements.push_back(desc);
+
+            if (layout->elementStrides.find(attr.bufferIndex) == layout->elementStrides.end())
+            {
+                layout->elementStrides[attr.bufferIndex] = attr.elementStride;
+            }
+            else {
+                assert(layout->elementStrides[attr.bufferIndex] == attr.elementStride);
+            }
+        }
+
+        return InputLayoutHandle::Create(layout);
+#else
         // The shader is not needed here, there are no separate IL objects in DX12
         (void)vertexShader;
 
@@ -278,12 +328,14 @@ namespace nvrhi::d3d12
             if (layout->elementStrides.find(attr.bufferIndex) == layout->elementStrides.end())
             {
                 layout->elementStrides[attr.bufferIndex] = attr.elementStride;
-            } else {
+            }
+            else {
                 assert(layout->elementStrides[attr.bufferIndex] == attr.elementStride);
             }
         }
 
         return InputLayoutHandle::Create(layout);
+#endif
     }
 
     uint32_t InputLayout::getNumAttributes() const

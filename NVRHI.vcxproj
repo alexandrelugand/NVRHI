@@ -57,7 +57,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>4005;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PreprocessorDefinitions>NOMINMAX;VK_USE_PLATFORM_WIN32_KHR;NVRHI_D3D12_WITH_COOPVEC=0;VULKAN_HPP_DISPATCH_LOADER_DYNAMIC=1;NVRHI_SHARED_LIBRARY_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;VK_USE_PLATFORM_WIN32_KHR;NVRHI_D3D12_WITH_COOPVEC=0;VULKAN_HPP_DISPATCH_LOADER_DYNAMIC=1;NVRHI_SHARED_LIBRARY_BUILD;NVRHI_D3D12_SUNSET_INPUT_LAYOUT_SEMANTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>include;thirdparty\Vulkan-Headers\include;thirdparty\DirectX-Headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -75,7 +75,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>4005;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PreprocessorDefinitions>NOMINMAX;VK_USE_PLATFORM_WIN32_KHR;NVRHI_D3D12_WITH_COOPVEC=0;VULKAN_HPP_DISPATCH_LOADER_DYNAMIC=1;NVRHI_SHARED_LIBRARY_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;VK_USE_PLATFORM_WIN32_KHR;NVRHI_D3D12_WITH_COOPVEC=0;VULKAN_HPP_DISPATCH_LOADER_DYNAMIC=1;NVRHI_SHARED_LIBRARY_BUILD;NVRHI_D3D12_SUNSET_INPUT_LAYOUT_SEMANTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>include;thirdparty\Vulkan-Headers\include;thirdparty\DirectX-Headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>

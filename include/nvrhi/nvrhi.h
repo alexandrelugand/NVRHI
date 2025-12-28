@@ -636,6 +636,9 @@ namespace nvrhi
     struct VertexAttributeDesc
     {
         std::string name;
+#if NVRHI_D3D12_SUNSET_INPUT_LAYOUT_SEMANTIC
+        uint32_t semanticIndex = 0;
+#endif
         Format format = Format::UNKNOWN;
         uint32_t arraySize = 1;
         uint32_t bufferIndex = 0;
@@ -644,7 +647,11 @@ namespace nvrhi
         uint32_t elementStride = 0;
         bool isInstanced = false;
 
+
                   VertexAttributeDesc& setName(const std::string& value) { name = value; return *this; }
+#if NVRHI_D3D12_SUNSET_INPUT_LAYOUT_SEMANTIC
+        constexpr VertexAttributeDesc& setSemanticIndex(uint32_t value) { semanticIndex = value; return *this; }
+#endif
         constexpr VertexAttributeDesc& setFormat(Format value) { format = value; return *this; }
         constexpr VertexAttributeDesc& setArraySize(uint32_t value) { arraySize = value; return *this; }
         constexpr VertexAttributeDesc& setBufferIndex(uint32_t value) { bufferIndex = value; return *this; }
