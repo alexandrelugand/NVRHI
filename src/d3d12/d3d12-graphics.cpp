@@ -422,7 +422,12 @@ namespace nvrhi::d3d12
             m_ActiveCommandList->commandList->IASetVertexBuffers(0, maxVbIndex + 1, VBVs);
         }
 
-        if (m_EnableAutomaticBarriers && state.indexBuffer.buffer && (m_BindingStatesDirty || updateVertexBuffers))
+        // Note: gated on state.vertexBuffers being non-empty, NOT state.indexBuffer.buffer — draws
+        // without an index buffer (e.g. LineRenderer's TriangleList draws) still need their vertex
+        // buffers transitioned to VertexBuffer state, otherwise a buffer last written via
+        // writeBuffer() (which leaves it in CopyDest) stays in CopyDest and IASetVertexBuffers use
+        // fails D3D12 validation ("Resource state ... is invalid for use as a vertex buffer").
+        if (m_EnableAutomaticBarriers && !state.vertexBuffers.empty() && (m_BindingStatesDirty || updateVertexBuffers))
         {
             for (const VertexBufferBinding& binding : state.vertexBuffers)
             {

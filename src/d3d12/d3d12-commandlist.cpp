@@ -99,8 +99,27 @@ namespace nvrhi::d3d12
             return nullptr;
         }
 
-        m_Context.device->CreateCommandAllocator(d3dCommandListType, IID_PPV_ARGS(&commandList->allocator));
-        m_Context.device->CreateCommandList(0, d3dCommandListType, commandList->allocator, nullptr, IID_PPV_ARGS(&commandList->commandList));
+        HRESULT hr = m_Context.device->CreateCommandAllocator(d3dCommandListType, IID_PPV_ARGS(&commandList->allocator));
+        if (FAILED(hr))
+        {
+            std::stringstream ss;
+            ss << "CreateCommandAllocator() failed, HRESULT = 0x" << std::hex << hr;
+            if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
+                ss << ", device removed reason = 0x" << std::hex << m_Context.device->GetDeviceRemovedReason();
+            m_Context.error(ss.str());
+            return nullptr;
+        }
+
+        hr = m_Context.device->CreateCommandList(0, d3dCommandListType, commandList->allocator, nullptr, IID_PPV_ARGS(&commandList->commandList));
+        if (FAILED(hr))
+        {
+            std::stringstream ss;
+            ss << "CreateCommandList() failed, HRESULT = 0x" << std::hex << hr;
+            if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
+                ss << ", device removed reason = 0x" << std::hex << m_Context.device->GetDeviceRemovedReason();
+            m_Context.error(ss.str());
+            return nullptr;
+        }
 
         commandList->commandList->QueryInterface(IID_PPV_ARGS(&commandList->commandList4));
         commandList->commandList->QueryInterface(IID_PPV_ARGS(&commandList->commandList6));
@@ -257,6 +276,15 @@ namespace nvrhi::d3d12
         if (chunk == nullptr)
         {
             chunk = createInternalCommandList();
+        }
+
+        if (chunk == nullptr)
+        {
+            // createInternalCommandList() already logged the HRESULT/device-removed reason via m_Context.error().
+            // There is no valid command list to record into, so recording further commands would be worse than
+            // a clear, immediate crash here.
+            utils::NotSupported();
+            return;
         }
 
         m_ActiveCommandList = chunk;
